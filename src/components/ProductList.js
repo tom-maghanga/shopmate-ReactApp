@@ -3,10 +3,11 @@ import useFetch from '../hooks/useFetch';
 
 function ProductList() {
     const[url, setUrl] = useState("http://localhost:8000/products");
-    const {data : products} = useFetch(url);
+    const {data : products, loading} = useFetch(url);
 
   return (
     <section>
+      {loading && <p>loading Products .....</p>}
       <div className='filter'>
         <button onClick={() => setUrl("http://localhost:8000/products")}>All</button>
         <button onClick={() => setUrl("http://localhost:8000/products?in_stock=1")}>In Stock</button>
