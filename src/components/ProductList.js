@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import useFetch from '../hooks/useFetch';
 
 function ProductList() {
-    const [products, setProducts] = useState([]);
     const[url, setUrl] = useState("http://localhost:8000/products");
-
-     
-    useEffect(() => {
-      fetch(url)
-      .then(response => response.json())
-      .then(data => setProducts(data));
-  }, [url]);
+    const {data : products} = useFetch(url);
 
   return (
     <section>
@@ -17,7 +11,7 @@ function ProductList() {
         <button onClick={() => setUrl("http://localhost:8000/products")}>All</button>
         <button onClick={() => setUrl("http://localhost:8000/products?in_stock=1")}>In Stock</button>
       </div>
-      { products.map((product) => (
+      { products && products.map((product) => (
             <div className="card" key={product.id}>
                 <p className="id">{product.id}</p>
                 <p className="name">{product.name}</p>
